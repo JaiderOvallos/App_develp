@@ -1,0 +1,61 @@
+document.getElementById("formLogin").addEventListener('submit',function(e) {
+    e.preventDefault();
+    const email=document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    login(email, password)
+
+})
+
+function login(email,password){
+   
+    let message =''
+    let alertType=''
+    localStorage.removeItem('token')
+    fetch("https://reqres.in/api/login", {
+        method:"POST",
+        headers:{
+            "content-type" :"application/json",
+            'x-api-key': 'reqres-free-v1'
+        },
+
+        body:JSON.stringify({email, password})
+    })
+    .then((response)=>{
+        if(response.status==200){
+            alertType= 'success'
+             message='Inicio de sesion exitosa';
+            console.log('200 ok, responde bien'+ response )
+            alertBuilder(alertType,message)
+            localStorage.setItem('token', 'pofvip')
+            setTimeout(()=> {
+                location.href='admin/dashbioard.html'
+            },200) 
+        
+
+        }else{
+            alertType='danger'
+            message='correo o contraseña incorrecta'
+        }
+        
+    })
+    .catch((error)=>{
+        alertType= 'danger'
+        message='Correo o contraseña incorrecta';
+        console.log('error')
+    })
+    
+
+}
+
+function alertBuilder(alertType,message){
+    const alert=`
+    <div class="alert alert-${alertType} alert-dismissible fade show" role="alert">
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    
+    `;
+    document.getElementById('alert').innerHTML=alert;
+
+}
