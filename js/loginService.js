@@ -27,7 +27,9 @@ function login(email,password){
              message='Inicio de sesion exitosa';
             console.log('200 ok, responde bien'+ response )
             alertBuilder(alertType,message)
-            localStorage.setItem('token', 'pofvip')
+            response.json().then((data)=> {
+                localStorage.setItem('token', data.token)
+            })
             setTimeout(()=> {
                 location.href='admin/dashbioard.html'
             },200) 
