@@ -125,7 +125,7 @@ function showModalProduct(product){
             </div>
             <div class="modal-body">
                <div class="card">
-                  <input type="color" value="${product.color}">
+                  <input type="color" value="${product.color}" style="width:100%">
                   <div class="card-body">
                     <h5 class="card-title">Product Info</h5>
                     <p class="card-text">First Name : ${product.id}</p>
